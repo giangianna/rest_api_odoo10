@@ -3,10 +3,9 @@ from odoo.http import Response
 import json
 from datetime import datetime, timedelta
 import werkzeug
-from odoo import models, fields, api
-import urllib3.request
+from odoo import models, fields, api, http
+from odoo.http import Controller, route, request
 import simplejson as json
-import requests
 import ssl
 from pprint import pprint
 import base64
@@ -16,7 +15,7 @@ import itertools as it
 
 class UsersApi(http.Controller):
     
-    @http.route('/api/users', csrf=False, type='http', methods=["GET"], token=None, auth='public')
+    @http.route('/api/users', csrf=False, type='http', methods=["GET"], token=None, auth='user')
     # print('test')
     def get_users(self, **args):
         request.env.cr.execute("""
